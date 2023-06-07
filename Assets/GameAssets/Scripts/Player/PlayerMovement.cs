@@ -62,7 +62,7 @@ namespace Core.Player
             playerMove.Invoke(new Vector3(tempMoveY, tempMoveX, moveDirection.y));
 
            
-
+            //Jump
             if (Input.GetKey(GameManager.Instance.playerData.inpuSettings.KeyJump) && canMove && chController.isGrounded)
             {
                 moveDirection.y = GameManager.Instance.playerData.moveSettings.jumpSpeed;
@@ -74,7 +74,7 @@ namespace Core.Player
             }
 
            
-
+            //Gravity
             if (!chController.isGrounded)
             {
                 moveDirection.y -= GameManager.Instance.playerData.moveSettings.gravity * Time.deltaTime;
@@ -82,7 +82,7 @@ namespace Core.Player
 
             chController.Move(moveDirection * Time.deltaTime);
 
-
+            //Rotate to mouse
             if (canMove)
             {
                  transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * GameManager.Instance.playerData.moveSettings.lookSpeed, 0);

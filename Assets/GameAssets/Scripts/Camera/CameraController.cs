@@ -30,7 +30,8 @@ namespace Core.Cameras
         void Start()
         {
             disCamera = Vector3.Distance(transform.position, target.position);
-
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
 

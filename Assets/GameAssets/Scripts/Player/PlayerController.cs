@@ -18,6 +18,7 @@ namespace Core.Player
         private CharacterController chController;
         private bool shootComplete = true;
 
+        //Init
         private void Start()
         {
             playerAnimation = GetComponent<AnimationsController>();
@@ -51,17 +52,23 @@ namespace Core.Player
                 }
                 if (weaponsController.currentWeapon)
                     UIManager.Instance.UpdateBullets(weaponsController.currentWeapon.amountBullet);
+
                 Destroy(pickUp.gameObject);
             }
         }
-
+        /// <summary>
+        /// Move and Strafe
+        /// </summary>
+        /// <param name="dir"> Strafe and move direction</param>
         private void OnMovement(Vector3 dir)
         {
             playerAnimation.Move(dir.x);
             playerAnimation.Strafe(dir.y);
             playerAnimation.Run(playerMovement.isRunning);
         }
-
+        /// <summary>
+        ///Animation Jump
+        /// </summary>
         private void OnJump()
         {
             playerAnimation.Jump();
@@ -69,6 +76,7 @@ namespace Core.Player
      
         private void Update()
         {
+            //Open Inventory
             if (Input.GetKeyDown(GameManager.Instance.playerData.inpuSettings.KeyInventory))
             {
                 if (UIManager.Instance.inventoryController.transform.parent.gameObject.activeSelf)
@@ -83,8 +91,10 @@ namespace Core.Player
                 }
                     
             }
+             
             if (EventSystem.current.IsPointerOverGameObject())
                 return;
+            //Shooting
             if (weaponsController.currentWeapon && shootComplete && Input.GetMouseButton(0) && chController.isGrounded)
             {
                 if(weaponsController.currentWeapon.amountBullet > 0)
@@ -94,18 +104,21 @@ namespace Core.Player
                 }
 
             }
+            //Without weapons
             if (Input.GetKeyUp(GameManager.Instance.playerData.inpuSettings.KeyWeaponNone))
             {
                 weaponsController.SetWeapon(PlayerWeapon.WeaponType.None);
                
                 playerAnimation.SetWeapon(0);
             }
+            //Pistol weapon
             if (Input.GetKeyUp(GameManager.Instance.playerData.inpuSettings.KeyWeaponPistol))
             {
                 weaponsController.SetWeapon(PlayerWeapon.WeaponType.Pistol);
                 UIManager.Instance.UpdateBullets(weaponsController.currentWeapon.amountBullet);
                 playerAnimation.SetWeapon(1);
             }
+            //Rifle weapon
             if (Input.GetKeyUp(GameManager.Instance.playerData.inpuSettings.KeyWeaponRifle))
             {
                 weaponsController.SetWeapon(PlayerWeapon.WeaponType.Rifle);
@@ -115,7 +128,7 @@ namespace Core.Player
           
         }
 
-        IEnumerator Shoot()
+        private IEnumerator Shoot()
         {
             playerAnimation.Shoot();
             weaponsController.currentWeapon.Shoot();
