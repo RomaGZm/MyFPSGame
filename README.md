@@ -10,6 +10,8 @@ LMouse - Shoot
 
 RMouse - Rotate Y axis
 
+Run - Left Shift
+
 Mouse Move X - Rotate X Axis
 
 Tab - Open Inventory
