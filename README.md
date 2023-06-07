@@ -1,6 +1,6 @@
 Unity version 2021.3.6f1
 
-----------Game control--------------
+#----------Game control--------------
 WASD -  Move and Strafe
 Space - Jump
 LMouse - Shoot
